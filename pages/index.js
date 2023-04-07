@@ -1,16 +1,24 @@
 import MeetUpList from "../components/meetups/MeetUpList";
 import { MongoClient } from "mongodb";
+import Head from "next/head";
 
 const HomePage = (props) => {
-  return <MeetUpList meetups={props.meetups}></MeetUpList>;
+  return (
+    <>
+      <Head>
+        <title>React Meetups</title>
+        <meta name="desciption" content="description of the app goes here"></meta>
+      </Head>
+      <MeetUpList meetups={props.meetups}></MeetUpList>
+    </>
+  );
 };
 
 export const getStaticProps = async () => {
-
-const mongoPassword = process.env.MONGO_PASSWORD;
-const mongoUser = process.env.MONGO_USER;
-const mongoCluster = process.env.MONGO_CLUSTER;
-const mongoDatabase = process.env.MONGO_DATABASE;
+  const mongoPassword = process.env.MONGO_PASSWORD;
+  const mongoUser = process.env.MONGO_USER;
+  const mongoCluster = process.env.MONGO_CLUSTER;
+  const mongoDatabase = process.env.MONGO_DATABASE;
 
   const client = await MongoClient.connect(
     `mongodb+srv://${mongoUser}:${mongoPassword}@${mongoCluster}.ruawe0b.mongodb.net/${mongoDatabase}?retryWrites=true&w=majority`
